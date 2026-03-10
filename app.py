@@ -393,167 +393,354 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-#  CSS
+#  CSS — Claude-style interface
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Söhne:wght@400;500;600&family=Styrene+A:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap');
 
-html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
-.stApp { background-color: #070c18; color: #e2e8f0; }
+/* ── Reset & Base ── */
+html, body, [class*="css"] {
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+}
+.stApp {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
 #MainMenu, footer, header { visibility: hidden; }
 
-/* Sidebar */
+/* ── Sidebar — Claude-style dark ── */
 [data-testid="stSidebar"] {
-    background: #0a0f1e !important;
-    border-right: 1px solid rgba(14,165,233,0.2) !important;
+    background: #171717 !important;
+    border-right: 1px solid #2a2a2a !important;
+    width: 260px !important;
 }
+[data-testid="stSidebar"] * { color: #d4d4d4 !important; }
+[data-testid="stSidebar"] h1,
+[data-testid="stSidebar"] h2,
+[data-testid="stSidebar"] h3 { color: #ffffff !important; }
 [data-testid="collapsedControl"] {
-    background: #0ea5e9 !important;
-    border-radius: 0 8px 8px 0 !important;
+    background: #2a2a2a !important;
+    color: #aaa !important;
+}
+[data-testid="stSidebar"] .stButton > button {
+    background: transparent !important;
+    border: none !important;
+    color: #c4c4c4 !important;
+    text-align: left !important;
+    border-radius: 8px !important;
+    font-size: 13px !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+    transition: background 0.15s;
+}
+[data-testid="stSidebar"] .stButton > button:hover {
+    background: #2a2a2a !important;
+    color: #ffffff !important;
+}
+[data-testid="stSidebar"] hr { border-color: #2a2a2a !important; }
+[data-testid="stSidebar"] .stFileUploader section {
+    background: #1e1e1e !important;
+    border: 1.5px dashed #444 !important;
+    border-radius: 10px !important;
+    padding: 12px !important;
+}
+[data-testid="stSidebar"] .stFileUploader section:hover {
+    border-color: #888 !important;
+    background: #252525 !important;
+}
+[data-testid="stSidebar"] [data-testid="stMetric"] {
+    background: #1e1e1e !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 8px !important;
+    padding: 8px !important;
+}
+[data-testid="stSidebar"] [data-testid="stMetricValue"] { color: #ffffff !important; }
+[data-testid="stSidebar"] [data-testid="stMetricLabel"] { color: #888 !important; }
+
+/* ── Main area — clean white like Claude ── */
+section.main > div { padding-top: 0 !important; padding-bottom: 0 !important; }
+.block-container {
+    max-width: 780px !important;
+    margin: 0 auto !important;
+    padding: 0 20px 160px !important;
 }
 
-/* Chat messages */
-.stChatMessage {
-    background: rgba(14,165,233,0.06) !important;
-    border: 1px solid rgba(14,165,233,0.18) !important;
-    border-radius: 14px !important;
+/* ── Chat messages — Claude style ── */
+/* Hide default Streamlit chat styling */
+[data-testid="stChatMessage"] {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+[data-testid="stChatMessage"] + [data-testid="stChatMessage"] {
+    border-top: none !important;
 }
 
-/* Native chat input styling */
+/* User message pill — right aligned with gray bg */
+[data-testid="stChatMessage"][data-testid*="user"],
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) .stMarkdown {
+    background: #f4f4f4 !important;
+    border-radius: 18px 18px 4px 18px !important;
+    padding: 10px 16px !important;
+    max-width: 75% !important;
+    color: #1a1a1a !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+}
+
+/* Assistant message — no bubble, just text like Claude */
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
+    padding: 4px 0 !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown {
+    background: transparent !important;
+    padding: 0 !important;
+    font-size: 15px !important;
+    line-height: 1.75 !important;
+    color: #1a1a1a !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown p {
+    margin-bottom: 10px !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown strong {
+    color: #111 !important;
+    font-weight: 600 !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown ul,
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown ol {
+    padding-left: 20px !important;
+    margin-bottom: 10px !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown li {
+    margin-bottom: 4px !important;
+}
+div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown code {
+    background: #f4f4f4 !important;
+    border-radius: 4px !important;
+    padding: 1px 5px !important;
+    font-size: 13px !important;
+    color: #c7254e !important;
+}
+
+/* Avatar icons */
+[data-testid="chatAvatarIcon-assistant"] {
+    background: #d97706 !important;
+    border-radius: 50% !important;
+    width: 32px !important; height: 32px !important;
+    font-size: 16px !important;
+    flex-shrink: 0 !important;
+}
+[data-testid="chatAvatarIcon-user"] {
+    background: #6366f1 !important;
+    border-radius: 50% !important;
+    width: 32px !important; height: 32px !important;
+    font-size: 14px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Message row spacing */
+[data-testid="stChatMessage"] {
+    margin-bottom: 20px !important;
+}
+
+/* ── Input bar — Claude-style ── */
 [data-testid="stChatInput"] {
-    border: 1px solid rgba(14,165,233,0.4) !important;
-    border-radius: 0 18px 18px 0 !important;
-    background: rgba(255,255,255,0.04) !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
+    max-width: 780px !important;
+    margin: 0 auto !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background: #ffffff !important;
+    border: 1.5px solid #e0e0e0 !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08) !important;
+    padding: 4px 8px !important;
+    margin-bottom: 20px !important;
+}
+[data-testid="stChatInput"]:focus-within {
+    border-color: #b4b4b4 !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.12) !important;
 }
 [data-testid="stChatInput"] textarea {
-    color: #e2e8f0 !important;
-    font-family: 'DM Sans', sans-serif !important;
-    font-size: 14px !important;
+    font-family: 'Lato', sans-serif !important;
+    font-size: 15px !important;
+    color: #1a1a1a !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 10px 12px !important;
+    line-height: 1.5 !important;
 }
-[data-testid="stChatInput"] > div {
-    border-radius: 0 18px 18px 0 !important;
-    background: rgba(10,15,30,0.98) !important;
+[data-testid="stChatInput"] textarea::placeholder {
+    color: #aaa !important;
+    font-size: 15px !important;
+}
+[data-testid="stChatInput"] button[kind="primary"] {
+    background: #1a1a1a !important;
+    border-radius: 10px !important;
+    width: 36px !important; height: 36px !important;
+    color: white !important;
     border: none !important;
 }
-/* Send button inside chat input */
-[data-testid="stChatInput"] button {
-    background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
-    border-radius: 50% !important;
-    color: white !important;
+[data-testid="stChatInput"] button[kind="primary"]:hover {
+    background: #333 !important;
+}
+[data-testid="stChatInput"] button[kind="primary"]:disabled {
+    background: #e5e5e5 !important;
+    color: #aaa !important;
 }
 
-/* Plus upload button column */
-div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] {
-    margin: 0 !important;
-}
-div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] section {
-    border: 2px solid rgba(14,165,233,0.45) !important;
-    background: rgba(14,165,233,0.12) !important;
-    border-radius: 18px 0 0 18px !important;
-    padding: 0 !important;
-    min-height: 52px !important;
+/* ── Plus uploader button column ── */
+.plus-col [data-testid="stFileUploader"] section {
+    border: none !important;
+    background: transparent !important;
+    border-radius: 10px !important;
+    padding: 6px !important;
+    min-height: 44px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
+    transition: background 0.15s !important;
 }
-div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] section:hover {
-    background: rgba(14,165,233,0.25) !important;
-    border-color: #38bdf8 !important;
+.plus-col [data-testid="stFileUploader"] section:hover {
+    background: #f4f4f4 !important;
 }
-/* Hide the default file uploader text, show only icon */
-div[data-testid="stColumn"]:first-child [data-testid="stFileUploaderDropzoneInstructions"] {
-    display: none !important;
-}
-div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] section::before {
-    content: "＋";
-    color: #0ea5e9;
-    font-size: 26px;
-    font-weight: 300;
+.plus-col [data-testid="stFileUploaderDropzoneInstructions"],
+.plus-col small,
+.plus-col [data-testid="stFileUploaderDropzone"] > div,
+.plus-col [data-testid="baseButton-secondary"] { display: none !important; }
+.plus-col [data-testid="stFileUploader"] section::before {
+    content: "📎";
+    font-size: 20px;
     line-height: 1;
 }
-div[data-testid="stColumn"]:first-child small { display: none !important; }
-div[data-testid="stColumn"]:first-child [data-testid="stFileUploaderDropzone"] > div { display: none !important; }
-div[data-testid="stColumn"]:first-child [data-testid="baseButton-secondary"] { display: none !important; }
+.plus-col { width: 44px !important; flex-shrink: 0 !important; }
 
-/* Bottom input area wrapper */
-.input-wrapper {
+/* ── Input row layout fix ── */
+.input-row {
     position: fixed;
     bottom: 0; left: 0; right: 0;
-    z-index: 200;
-    background: linear-gradient(to top, #070c18 85%, transparent);
-    padding: 10px 16px 18px;
+    z-index: 1000;
+    background: linear-gradient(to top, #fff 80%, transparent);
+    padding: 10px 20px 18px;
+    display: flex;
+    justify-content: center;
+}
+.input-inner {
+    width: 100%;
+    max-width: 780px;
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    background: #fff;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    padding: 6px 8px 6px 8px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-inner:focus-within {
+    border-color: #b4b4b4;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.12);
 }
 
-/* Sidebar buttons */
-.stButton > button {
-    background: rgba(14,165,233,0.12) !important;
-    border: 1px solid rgba(14,165,233,0.3) !important;
-    color: #7dd3fc !important;
-    border-radius: 20px !important;
-    font-size: 12px !important;
-    font-family: 'DM Sans', sans-serif !important;
-    transition: all 0.2s;
-}
-.stButton > button:hover {
-    background: rgba(14,165,233,0.28) !important;
-    border-color: #0ea5e9 !important;
-    color: #fff !important;
-}
+/* Hide default Streamlit chat input — we build our own row */
+[data-testid="stChatInput"] { display: none !important; }
 
-/* Drag overlay */
+/* ── Drag overlay ── */
 #drag-overlay {
     display: none;
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     z-index: 9999;
-    background: rgba(7,12,24,0.88);
-    backdrop-filter: blur(8px);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 14px;
     pointer-events: none;
 }
 #drag-overlay.active { display: flex !important; }
 .drop-box {
-    border: 3px dashed #0ea5e9;
+    border: 3px dashed #d97706;
     border-radius: 24px;
-    padding: 60px 100px;
+    padding: 56px 90px;
     text-align: center;
-    background: rgba(14,165,233,0.08);
+    background: rgba(217,119,6,0.05);
     animation: pulseBorder 1.4s ease-in-out infinite;
     pointer-events: none;
 }
 @keyframes pulseBorder {
-    0%,100% { border-color: #0ea5e9; box-shadow: 0 0 0 0 rgba(14,165,233,0.4); }
-    50%      { border-color: #38bdf8; box-shadow: 0 0 0 14px rgba(14,165,233,0); }
+    0%,100% { border-color: #d97706; box-shadow: 0 0 0 0 rgba(217,119,6,0.3); }
+    50%      { border-color: #f59e0b; box-shadow: 0 0 0 12px rgba(217,119,6,0); }
 }
 
-[data-testid="stMetricValue"] { color: #38bdf8 !important; }
-[data-testid="stMetricLabel"] { color: #94a3b8 !important; }
+/* ── Misc ── */
 .stAlert { border-radius: 10px !important; }
-h1,h2,h3 { color: #f0f9ff !important; }
-p, li { color: #cbd5e1 !important; }
+.stInfo { background: #fefce8 !important; border-color: #fde68a !important; color: #92400e !important; }
+p { color: #1a1a1a !important; }
+li { color: #1a1a1a !important; }
+h1,h2,h3 { color: #111 !important; font-weight: 600 !important; }
+[data-testid="stMarkdownContainer"] hr {
+    border-color: #e8e8e8 !important;
+    margin: 20px 0 !important;
+}
+
+/* PDF badge */
+.pdf-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fefce8; border: 1px solid #fde68a;
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 13px; color: #92400e; font-weight: 500;
+    margin-bottom: 12px;
+}
+
+/* Scroll padding */
+.main .block-container { padding-bottom: 160px !important; }
 </style>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
 #  System prompt
 # ─────────────────────────────────────────────
-SYSTEM_PROMPT = """You are an expert AR (Accounts Receivable) Denial Resolution Assistant for Aayur Solutions. Help billing staff resolve claim denials fast.
+SYSTEM_PROMPT = """You are an expert AR (Accounts Receivable) Denial Resolution Assistant for Aayur Solutions. Help billing staff resolve claim denials fast and accurately.
 
-DENIAL PROCESSES:
-1. CLAIM NOT FOUND — Electronic: check Payer ID → clearinghouse → payer acceptance → resubmit. Paper: check mailing address → update Payer ID → resubmit.
-2. POLICY TERMED — Check for other active policy on service date. Found → bill new insurance. Not found → transfer to patient.
-3. DUPLICATE CLAIM — Corrected: check Freq Code 7 & Resubmission ID → resubmit or contact payer. Not corrected: void in adjudication.
-4. TIMELY FILING — Late: query client. On time: check POTF → resubmit with proof or contact payer.
-5. COB — Same flow as Timely Filing.
+DENIAL RESOLUTION PROCESSES:
 
-AR AGING: 0-30 | 31-60 | 61-90 | 91-120 | 121+ days. Medicare = 15 days. Pull files every 15-30 days. Run 3 AR cycles.
+1. CLAIM NOT FOUND
+   Electronic: check Payer ID correct? → If wrong, update & resubmit. If right, check clearinghouse acceptance → if rejected, work rejections; if accepted, check payer acceptance → if yes, contact payer with tracking# to reprocess; if no, resubmit.
+   Paper: check mailing address correct? → If wrong, update Payer ID & resubmit. If right, resubmit.
 
-If PDF content is provided, answer from it first. Be concise, step-by-step, action-oriented."""
+2. POLICY TERMED
+   Does patient have another policy? → If yes, is it active on service date? → If yes, transfer balance to patient. If no other policy or not active → contact patient/doctor for other insurance → found? update as primary & bill new insurance. Not found → transfer to patient.
+
+3. DUPLICATE CLAIM
+   Was it a corrected claim? → If no, contact payer to void in adjudication. If yes, was it submitted with Freq Code 7 & Resubmission ID? → If no, resubmit with those. If yes, contact payer to reprocess.
+
+4. TIMELY FILING
+   Submitted within payer timeframe? → If no, send query to client. If yes, do we have POTF? → If no, contact payer to confirm receipt & reprocess. If yes, resubmit with POTF.
+
+5. COORDINATION OF BENEFITS (COB) — Same flow as Timely Filing.
+
+AR AGING BUCKETS: 0-30 | 31-60 | 61-90 | 91-120 | 121+ days. Medicare = 15 days. Pull new files every 15-30 days. Run at least 3 AR cycles.
+
+BEHAVIOR:
+- If PDF content is provided, prioritize answering from it
+- Be warm, clear, and step-by-step
+- Highlight urgent actions (timely filing deadlines, etc.)
+- Format responses cleanly with markdown"""
 
 QUICK_ACTIONS = [
     ("🔍 Claim Not Found",  "How do I resolve a Claim Not Found denial?"),
@@ -591,7 +778,7 @@ def call_groq(user_text: str, pdf_text: str | None = None) -> str:
     client = Groq(api_key=st.secrets["GROQ_API_KEY"])
     system = SYSTEM_PROMPT
     if pdf_text:
-        system += f"\n\nUPLOADED PDF CONTENT:\n{pdf_text[:12000]}"
+        system += f"\n\nUPLOADED PDF CONTENT:\n{pdf_text[:12000]}\n\nAnswer primarily from this document."
     history = st.session_state.messages[-10:]
     api_msgs = [{"role": m["role"], "content": m["content"]} for m in history]
     api_msgs.append({"role": "user", "content": user_text})
@@ -605,106 +792,170 @@ def call_groq(user_text: str, pdf_text: str | None = None) -> str:
 
 
 def handle_pdf(uploaded):
-    """Process a newly uploaded PDF file."""
     if uploaded and st.session_state.pdf_name != uploaded.name:
-        with st.spinner("📖 Reading PDF..."):
+        with st.spinner("Reading PDF..."):
             extracted = extract_pdf_text(uploaded.read())
         st.session_state.pdf_text = extracted
         st.session_state.pdf_name = uploaded.name
         st.session_state.messages.append({
             "role": "assistant",
-            "content": f"📄 **PDF loaded: `{uploaded.name}`**\n\nRead {len(extracted):,} characters. Ask me anything about it!"
+            "content": f"I've read **{uploaded.name}** ({len(extracted):,} characters). What would you like to know about it?"
         })
         st.rerun()
 
 
 # ═════════════════════════════════════════════
-#  SIDEBAR
+#  SIDEBAR — Claude dark sidebar style
 # ═════════════════════════════════════════════
 with st.sidebar:
+    # Logo / brand
     st.markdown("""
-    <div style="padding:0 4px 10px;">
-        <div style="font-size:26px;">⚕️</div>
-        <div style="color:#f0f9ff;font-weight:700;font-size:17px;">AR Denial Assistant</div>
-        <div style="color:#38bdf8;font-size:11px;margin-top:2px;">Aayur Solutions · Groq AI</div>
+    <div style="padding:16px 4px 20px; display:flex; align-items:center; gap:10px;">
+        <div style="width:34px;height:34px;border-radius:8px;
+                    background:#d97706;display:flex;align-items:center;
+                    justify-content:center;font-size:18px;flex-shrink:0;">⚕️</div>
+        <div>
+            <div style="color:#fff;font-weight:600;font-size:14px;line-height:1.2;">AR Denial Assistant</div>
+            <div style="color:#888;font-size:11px;">Aayur Solutions</div>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;
-                background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);
-                border-radius:8px;padding:6px 11px;">
-        <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;
-                    box-shadow:0 0 6px #22c55e;"></div>
-        <span style="color:#86efac;font-size:12px;font-weight:500;">Assistant Online</span>
-    </div>
-    """, unsafe_allow_html=True)
+    # New chat button style
+    if st.button("✏️  New conversation", use_container_width=True, key="new_chat"):
+        st.session_state.messages = []
+        st.session_state.pdf_text = None
+        st.session_state.pdf_name = None
+        st.rerun()
+
+    st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+
+    # PDF upload in sidebar
+    st.markdown("<div style='color:#888;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;padding:0 4px;'>Documents</div>", unsafe_allow_html=True)
+
+    side_pdf = st.file_uploader(
+        "Upload PDF", type=["pdf"],
+        label_visibility="collapsed",
+        key="sidebar_pdf"
+    )
+    handle_pdf(side_pdf)
 
     if st.session_state.pdf_name:
-        st.success(f"📄 {st.session_state.pdf_name}")
-        if st.button("✕ Remove PDF", use_container_width=True):
+        st.markdown(f"""
+        <div style="background:#1e1e1e;border:1px solid #333;border-radius:8px;
+                    padding:8px 10px;margin-top:6px;display:flex;align-items:center;gap:8px;">
+            <span style="font-size:16px;">📄</span>
+            <div style="flex:1;min-width:0;">
+                <div style="color:#e5e5e5;font-size:12px;font-weight:500;
+                            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                    {st.session_state.pdf_name}
+                </div>
+                <div style="color:#666;font-size:10px;">Active document</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        if st.button("Remove document", use_container_width=True, key="remove_pdf"):
             st.session_state.pdf_text = None
             st.session_state.pdf_name = None
             st.session_state.messages.append({
                 "role": "assistant",
-                "content": "PDF removed. Using built-in AR/SOP knowledge now."
+                "content": "Document removed. I'll answer from my built-in AR knowledge now."
             })
             st.rerun()
 
     st.divider()
-    st.markdown("### ⚡ Quick Actions")
+
+    # Quick actions
+    st.markdown("<div style='color:#888;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;padding:0 4px;'>Quick Actions</div>", unsafe_allow_html=True)
     for label, query in QUICK_ACTIONS:
         if st.button(label, use_container_width=True, key=f"qa_{label}"):
             st.session_state.quick_trigger = query
             st.rerun()
 
     st.divider()
+
+    # Stats
     c1, c2 = st.columns(2)
     c1.metric("Denials", "5 Types")
     c2.metric("Buckets", "5")
     c1.metric("PDF", "✅")
     c2.metric("HIPAA", "✅")
-    st.divider()
-    st.caption("⚡ llama-3.3-70b via Groq")
-    st.caption("🔒 Never enter real patient SSNs.")
+
+    st.markdown("""
+    <div style="margin-top:16px;padding:0 4px;">
+        <div style="color:#555;font-size:11px;">⚡ llama-3.3-70b via Groq</div>
+        <div style="color:#555;font-size:11px;margin-top:3px;">🔒 Never enter real patient SSNs</div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 # ═════════════════════════════════════════════
-#  MAIN AREA
+#  MAIN — Claude-style chat
 # ═════════════════════════════════════════════
-st.markdown("""
-<div style="text-align:center;padding:8px 0 14px;">
-    <h1 style="font-size:24px;margin:0;letter-spacing:-0.02em;">
-        ⚕️ AR Denial Resolution Assistant
-    </h1>
-    <p style="color:#38bdf8;margin:3px 0 0;font-size:13px;">
-        Aayur Solutions · Powered by Groq AI · PDF-Ready
-    </p>
-</div>
-""", unsafe_allow_html=True)
 
+# Thin top border
+st.markdown("<div style='height:1px;background:#f0f0f0;margin-bottom:0;'></div>", unsafe_allow_html=True)
+
+# PDF active badge
 if st.session_state.pdf_name:
-    st.info(f"📎 **PDF active:** {st.session_state.pdf_name} — Ask anything about this document!", icon="📄")
+    st.markdown(f"""
+    <div style="display:flex;justify-content:center;padding:10px 0 0;">
+        <div class="pdf-badge">📎 {st.session_state.pdf_name}</div>
+    </div>
+    """, unsafe_allow_html=True)
 
-# Welcome message
+# ── Welcome / empty state ──────────────────
 if not st.session_state.messages:
-    with st.chat_message("assistant", avatar="⚕️"):
-        st.markdown("""
-👋 **Welcome! I'm your AR Denial Resolution Assistant.**
+    st.markdown("""
+    <div style="display:flex;flex-direction:column;align-items:center;
+                justify-content:center;min-height:50vh;text-align:center;
+                padding:40px 20px 0;">
+        <div style="width:56px;height:56px;border-radius:14px;background:#d97706;
+                    display:flex;align-items:center;justify-content:center;
+                    font-size:28px;margin-bottom:20px;
+                    box-shadow:0 4px 20px rgba(217,119,6,0.3);">⚕️</div>
+        <h1 style="font-size:26px;font-weight:600;margin:0 0 8px;color:#111;">
+            How can I help you today?
+        </h1>
+        <p style="color:#666;font-size:15px;max-width:420px;line-height:1.6;margin:0 0 32px;">
+            I'm your AR Denial Resolution Assistant. Ask me about any claim denial,
+            or upload a PDF document to get answers from it directly.
+        </p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:500px;width:100%;">
+            <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:12px;
+                        padding:14px 16px;text-align:left;cursor:pointer;">
+                <div style="font-size:18px;margin-bottom:4px;">🔍</div>
+                <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:2px;">Claim Not Found</div>
+                <div style="font-size:12px;color:#888;">Step-by-step resolution guide</div>
+            </div>
+            <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:12px;
+                        padding:14px 16px;text-align:left;">
+                <div style="font-size:18px;margin-bottom:4px;">⏰</div>
+                <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:2px;">Timely Filing</div>
+                <div style="font-size:12px;color:#888;">Beat the filing deadline</div>
+            </div>
+            <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:12px;
+                        padding:14px 16px;text-align:left;">
+                <div style="font-size:18px;margin-bottom:4px;">📄</div>
+                <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:2px;">Upload a PDF</div>
+                <div style="font-size:12px;color:#888;">Ask questions from any document</div>
+            </div>
+            <div style="background:#f9f9f9;border:1px solid #e8e8e8;border-radius:12px;
+                        padding:14px 16px;text-align:left;">
+                <div style="font-size:18px;margin-bottom:4px;">📊</div>
+                <div style="font-size:13px;font-weight:600;color:#111;margin-bottom:2px;">AR Aging</div>
+                <div style="font-size:12px;color:#888;">Prioritize your AR buckets</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
-- ✅ Resolve any denial — Claim Not Found, Policy Termed, Duplicate, Timely Filing, COB
-- 📄 **Upload a PDF** using the **＋ button** beside the text box, or **drag & drop** anywhere
-- 📊 AR aging, resubmission steps, claim prioritization
-
-👈 Use **Quick Actions** in the sidebar, or type your question below!
-        """)
-
-# Chat history
+# ── Chat history ───────────────────────────
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="⚕️" if msg["role"] == "assistant" else "👤"):
         st.markdown(msg["content"])
 
-# Quick action trigger
+# ── Quick action trigger ───────────────────
 if st.session_state.quick_trigger:
     trigger = st.session_state.quick_trigger
     st.session_state.quick_trigger = None
@@ -712,101 +963,74 @@ if st.session_state.quick_trigger:
     with st.chat_message("user", avatar="👤"):
         st.markdown(trigger)
     with st.chat_message("assistant", avatar="⚕️"):
-        with st.spinner("Thinking..."):
+        with st.spinner(""):
             reply = call_groq(trigger, st.session_state.pdf_text)
         st.markdown(reply)
     st.session_state.messages.append({"role": "assistant", "content": reply})
     st.rerun()
 
-# Spacer so chat content isn't hidden behind fixed bar
-st.markdown("<div style='height:100px'></div>", unsafe_allow_html=True)
+# spacer before fixed input bar
+st.markdown("<div style='height:140px'></div>", unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-#  Drag & Drop Overlay (pure HTML, no Streamlit widgets)
+#  Drag-drop overlay
 # ─────────────────────────────────────────────
 st.markdown("""
 <div id="drag-overlay">
     <div class="drop-box">
-        <div style="font-size:52px;margin-bottom:10px;">📄</div>
-        <div style="color:#f0f9ff;font-size:20px;font-weight:700;margin-bottom:4px;">
+        <div style="font-size:48px;margin-bottom:10px;">📄</div>
+        <div style="color:#111;font-size:20px;font-weight:600;margin-bottom:4px;">
             Drop your PDF here
         </div>
-        <div style="color:#7dd3fc;font-size:13px;">
-            Release to upload and read the document
-        </div>
+        <div style="color:#888;font-size:14px;">Release to upload and read the document</div>
     </div>
-    <div style="color:#475569;font-size:11px;">PDF files only · Max 10MB</div>
+    <div style="color:#aaa;font-size:12px;">PDF files only</div>
 </div>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-#  BOTTOM INPUT BAR  ─  native Streamlit widgets
-#  Layout: [＋ uploader col] [chat input col]
+#  INPUT ROW — Plus (📎) + Chat input
 # ─────────────────────────────────────────────
-st.markdown("""
-<div style="position:fixed;bottom:0;left:0;right:0;z-index:200;
-            background:linear-gradient(to top,#070c18 80%,transparent);
-            padding:8px 16px 14px;">
-  <div style="max-width:900px;margin:0 auto;">
-""", unsafe_allow_html=True)
+col_plus, col_input = st.columns([1, 14])
 
-bar_col1, bar_col2 = st.columns([1, 11])
-
-with bar_col1:
-    # ＋ button = styled file uploader
-    plus_file = st.file_uploader(
-        "Upload PDF",
-        type=["pdf"],
+with col_plus:
+    st.markdown('<div class="plus-col">', unsafe_allow_html=True)
+    bar_pdf = st.file_uploader(
+        "pdf", type=["pdf"],
         label_visibility="collapsed",
-        key="plus_uploader",
+        key="bar_uploader"
     )
+    st.markdown('</div>', unsafe_allow_html=True)
 
-with bar_col2:
+with col_input:
     prompt = st.chat_input(
-        placeholder="Type your AR question or drag & drop a PDF anywhere…",
-        key="main_chat_input",
+        placeholder="Message AR Denial Assistant…",
+        key="main_chat"
     )
 
-st.markdown("</div></div>", unsafe_allow_html=True)
-
-# ─────────────────────────────────────────────
-#  Process inputs
-# ─────────────────────────────────────────────
-handle_pdf(plus_file)
+handle_pdf(bar_pdf)
 
 if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar="👤"):
         st.markdown(prompt)
     with st.chat_message("assistant", avatar="⚕️"):
-        with st.spinner("Analyzing..."):
+        with st.spinner(""):
             reply = call_groq(prompt, st.session_state.pdf_text)
         st.markdown(reply)
     st.session_state.messages.append({"role": "assistant", "content": reply})
 
-# Clear chat
-if st.session_state.messages:
-    st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([3, 2, 3])
-    with col2:
-        if st.button("🗑️ Clear Chat", use_container_width=True):
-            st.session_state.messages = []
-            st.rerun()
-
 # ─────────────────────────────────────────────
-#  JavaScript — drag & drop only
-#  (bridges dropped file to the native st.file_uploader)
+#  JS — drag & drop to Streamlit file input
 # ─────────────────────────────────────────────
 st.markdown("""
 <script>
 (function () {
-    // Find the Streamlit file uploader input
     function getSTInput() {
         const inputs = document.querySelectorAll('input[type="file"][accept="application/pdf"]');
         return inputs.length ? inputs[0] : null;
     }
-
-    function pushFileToStreamlit(file) {
+    function pushFile(file) {
         const inp = getSTInput();
         if (!inp) return;
         const dt = new DataTransfer();
@@ -814,32 +1038,27 @@ st.markdown("""
         inp.files = dt.files;
         inp.dispatchEvent(new Event('change', { bubbles: true }));
     }
-
     const overlay = document.getElementById('drag-overlay');
     let counter = 0;
-
     document.addEventListener('dragenter', (e) => {
         if ([...e.dataTransfer.types].includes('Files')) {
             counter++;
-            if (overlay) overlay.classList.add('active');
+            overlay && overlay.classList.add('active');
         }
     });
     document.addEventListener('dragleave', () => {
         counter = Math.max(0, counter - 1);
-        if (counter === 0 && overlay) overlay.classList.remove('active');
+        if (counter === 0) overlay && overlay.classList.remove('active');
     });
     document.addEventListener('dragover', (e) => e.preventDefault());
     document.addEventListener('drop', (e) => {
         e.preventDefault();
         counter = 0;
-        if (overlay) overlay.classList.remove('active');
+        overlay && overlay.classList.remove('active');
         const file = e.dataTransfer.files[0];
         if (!file) return;
-        if (file.type !== 'application/pdf') {
-            alert('Please drop a PDF file.');
-            return;
-        }
-        pushFileToStreamlit(file);
+        if (file.type !== 'application/pdf') { alert('Please drop a PDF file.'); return; }
+        pushFile(file);
     });
 })();
 </script>
