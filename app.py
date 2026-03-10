@@ -791,13 +791,13 @@ st.markdown("<div style='height:120px'></div>", unsafe_allow_html=True)
 #  FLOATING 📎 BUTTON  +  HIDDEN FILE UPLOADER
 # ═════════════════════════════════════════════
 
-# Floating attach button (pure HTML — just visual + triggers JS file picker)
-st.markdown("""
-<div id="attach-btn" title="Upload PDF" onclick="document.getElementById('real-file-input').click()">
-    📎
-</div>
-<input type="file" id="real-file-input" accept="application/pdf" />
-""", unsafe_allow_html=True)
+# # Floating attach button (pure HTML — just visual + triggers JS file picker)
+# st.markdown("""
+# <div id="attach-btn" title="Upload PDF" onclick="document.getElementById('real-file-input').click()">
+#     📎
+# </div>
+# <input type="file" id="real-file-input" accept="application/pdf" />
+# """, unsafe_allow_html=True)
 
 # Hidden Streamlit file uploader — this is the actual bridge
 bar_pdf = st.file_uploader(
