@@ -393,7 +393,7 @@ st.set_page_config(
 )
 
 # ─────────────────────────────────────────────
-#  Custom CSS
+#  CSS
 # ─────────────────────────────────────────────
 st.markdown("""
 <style>
@@ -407,7 +407,6 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 [data-testid="stSidebar"] {
     background: #0a0f1e !important;
     border-right: 1px solid rgba(14,165,233,0.2) !important;
-    min-width: 260px !important;
 }
 [data-testid="collapsedControl"] {
     background: #0ea5e9 !important;
@@ -421,10 +420,73 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
     border-radius: 14px !important;
 }
 
-/* Default chat input — hide it, we render our own bar */
-[data-testid="stChatInput"] { display: none !important; }
+/* Native chat input styling */
+[data-testid="stChatInput"] {
+    border: 1px solid rgba(14,165,233,0.4) !important;
+    border-radius: 0 18px 18px 0 !important;
+    background: rgba(255,255,255,0.04) !important;
+}
+[data-testid="stChatInput"] textarea {
+    color: #e2e8f0 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 14px !important;
+}
+[data-testid="stChatInput"] > div {
+    border-radius: 0 18px 18px 0 !important;
+    background: rgba(10,15,30,0.98) !important;
+    border: none !important;
+}
+/* Send button inside chat input */
+[data-testid="stChatInput"] button {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7) !important;
+    border-radius: 50% !important;
+    color: white !important;
+}
 
-/* Buttons */
+/* Plus upload button column */
+div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] {
+    margin: 0 !important;
+}
+div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] section {
+    border: 2px solid rgba(14,165,233,0.45) !important;
+    background: rgba(14,165,233,0.12) !important;
+    border-radius: 18px 0 0 18px !important;
+    padding: 0 !important;
+    min-height: 52px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+}
+div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] section:hover {
+    background: rgba(14,165,233,0.25) !important;
+    border-color: #38bdf8 !important;
+}
+/* Hide the default file uploader text, show only icon */
+div[data-testid="stColumn"]:first-child [data-testid="stFileUploaderDropzoneInstructions"] {
+    display: none !important;
+}
+div[data-testid="stColumn"]:first-child [data-testid="stFileUploader"] section::before {
+    content: "＋";
+    color: #0ea5e9;
+    font-size: 26px;
+    font-weight: 300;
+    line-height: 1;
+}
+div[data-testid="stColumn"]:first-child small { display: none !important; }
+div[data-testid="stColumn"]:first-child [data-testid="stFileUploaderDropzone"] > div { display: none !important; }
+div[data-testid="stColumn"]:first-child [data-testid="baseButton-secondary"] { display: none !important; }
+
+/* Bottom input area wrapper */
+.input-wrapper {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 200;
+    background: linear-gradient(to top, #070c18 85%, transparent);
+    padding: 10px 16px 18px;
+}
+
+/* Sidebar buttons */
 .stButton > button {
     background: rgba(14,165,233,0.12) !important;
     border: 1px solid rgba(14,165,233,0.3) !important;
@@ -440,68 +502,33 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
     color: #fff !important;
 }
 
-/* Plus button special style */
-div[data-testid="stButton"].plus-btn > button {
-    width: 48px !important;
-    height: 48px !important;
-    border-radius: 50% !important;
-    font-size: 22px !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(14,165,233,0.18) !important;
-    border: 2px solid rgba(14,165,233,0.5) !important;
-    color: #0ea5e9 !important;
-    min-height: 48px !important;
-}
-div[data-testid="stButton"].plus-btn > button:hover {
-    background: rgba(14,165,233,0.35) !important;
-    border-color: #38bdf8 !important;
-    transform: scale(1.08);
-}
-
-/* Drag-drop overlay */
+/* Drag overlay */
 #drag-overlay {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(7,12,24,0.85);
-    backdrop-filter: blur(6px);
+    background: rgba(7,12,24,0.88);
+    backdrop-filter: blur(8px);
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
+    pointer-events: none;
 }
 #drag-overlay.active { display: flex !important; }
-#drag-overlay .drop-box {
+.drop-box {
     border: 3px dashed #0ea5e9;
     border-radius: 24px;
-    padding: 60px 80px;
+    padding: 60px 100px;
     text-align: center;
     background: rgba(14,165,233,0.08);
-    animation: pulse-border 1.5s ease-in-out infinite;
+    animation: pulseBorder 1.4s ease-in-out infinite;
+    pointer-events: none;
 }
-@keyframes pulse-border {
+@keyframes pulseBorder {
     0%,100% { border-color: #0ea5e9; box-shadow: 0 0 0 0 rgba(14,165,233,0.4); }
-    50%      { border-color: #38bdf8; box-shadow: 0 0 0 12px rgba(14,165,233,0); }
-}
-
-/* Hidden real file input triggered by JS */
-#hidden-file-input {
-    display: none;
-}
-
-/* Custom input bar */
-#custom-input-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding: 12px 20px 16px;
-    background: linear-gradient(to top, #070c18 80%, transparent);
+    50%      { border-color: #38bdf8; box-shadow: 0 0 0 14px rgba(14,165,233,0); }
 }
 
 [data-testid="stMetricValue"] { color: #38bdf8 !important; }
@@ -519,9 +546,9 @@ SYSTEM_PROMPT = """You are an expert AR (Accounts Receivable) Denial Resolution 
 
 DENIAL PROCESSES:
 1. CLAIM NOT FOUND — Electronic: check Payer ID → clearinghouse → payer acceptance → resubmit. Paper: check mailing address → update Payer ID → resubmit.
-2. POLICY TERMED — Check for other active policy on service date. If found → bill new insurance. If not → transfer to patient.
-3. DUPLICATE CLAIM — If corrected: check Freq Code 7 & Resubmission ID → resubmit or contact payer. If not corrected: void in adjudication.
-4. TIMELY FILING — If late: query client. If on time: check POTF → resubmit with proof or contact payer.
+2. POLICY TERMED — Check for other active policy on service date. Found → bill new insurance. Not found → transfer to patient.
+3. DUPLICATE CLAIM — Corrected: check Freq Code 7 & Resubmission ID → resubmit or contact payer. Not corrected: void in adjudication.
+4. TIMELY FILING — Late: query client. On time: check POTF → resubmit with proof or contact payer.
 5. COB — Same flow as Timely Filing.
 
 AR AGING: 0-30 | 31-60 | 61-90 | 91-120 | 121+ days. Medicare = 15 days. Pull files every 15-30 days. Run 3 AR cycles.
@@ -541,8 +568,8 @@ QUICK_ACTIONS = [
 #  Session state
 # ─────────────────────────────────────────────
 for key, val in {
-    "messages": [], "pdf_text": None, "pdf_name": None,
-    "quick_trigger": None, "user_input": ""
+    "messages": [], "pdf_text": None,
+    "pdf_name": None, "quick_trigger": None,
 }.items():
     if key not in st.session_state:
         st.session_state[key] = val
@@ -577,7 +604,8 @@ def call_groq(user_text: str, pdf_text: str | None = None) -> str:
     return resp.choices[0].message.content
 
 
-def handle_pdf_upload(uploaded):
+def handle_pdf(uploaded):
+    """Process a newly uploaded PDF file."""
     if uploaded and st.session_state.pdf_name != uploaded.name:
         with st.spinner("📖 Reading PDF..."):
             extracted = extract_pdf_text(uploaded.read())
@@ -595,24 +623,22 @@ def handle_pdf_upload(uploaded):
 # ═════════════════════════════════════════════
 with st.sidebar:
     st.markdown("""
-    <div style="padding:0 4px 12px;">
-        <div style="font-size:26px; margin-bottom:4px;">⚕️</div>
+    <div style="padding:0 4px 10px;">
+        <div style="font-size:26px;">⚕️</div>
         <div style="color:#f0f9ff;font-weight:700;font-size:17px;">AR Denial Assistant</div>
         <div style="color:#38bdf8;font-size:11px;margin-top:2px;">Aayur Solutions · Groq AI</div>
     </div>
     """, unsafe_allow_html=True)
 
     st.markdown("""
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;
                 background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);
-                border-radius:8px;padding:7px 11px;">
+                border-radius:8px;padding:6px 11px;">
         <div style="width:8px;height:8px;border-radius:50%;background:#22c55e;
                     box-shadow:0 0 6px #22c55e;"></div>
         <span style="color:#86efac;font-size:12px;font-weight:500;">Assistant Online</span>
     </div>
     """, unsafe_allow_html=True)
-
-    st.divider()
 
     if st.session_state.pdf_name:
         st.success(f"📄 {st.session_state.pdf_name}")
@@ -624,8 +650,8 @@ with st.sidebar:
                 "content": "PDF removed. Using built-in AR/SOP knowledge now."
             })
             st.rerun()
-        st.divider()
 
+    st.divider()
     st.markdown("### ⚡ Quick Actions")
     for label, query in QUICK_ACTIONS:
         if st.button(label, use_container_width=True, key=f"qa_{label}"):
@@ -647,8 +673,10 @@ with st.sidebar:
 #  MAIN AREA
 # ═════════════════════════════════════════════
 st.markdown("""
-<div style="text-align:center;padding:8px 0 16px;">
-    <h1 style="font-size:25px;margin:0;letter-spacing:-0.02em;">⚕️ AR Denial Resolution Assistant</h1>
+<div style="text-align:center;padding:8px 0 14px;">
+    <h1 style="font-size:24px;margin:0;letter-spacing:-0.02em;">
+        ⚕️ AR Denial Resolution Assistant
+    </h1>
     <p style="color:#38bdf8;margin:3px 0 0;font-size:13px;">
         Aayur Solutions · Powered by Groq AI · PDF-Ready
     </p>
@@ -658,17 +686,17 @@ st.markdown("""
 if st.session_state.pdf_name:
     st.info(f"📎 **PDF active:** {st.session_state.pdf_name} — Ask anything about this document!", icon="📄")
 
-# Welcome
+# Welcome message
 if not st.session_state.messages:
     with st.chat_message("assistant", avatar="⚕️"):
         st.markdown("""
 👋 **Welcome! I'm your AR Denial Resolution Assistant.**
 
 - ✅ Resolve any denial — Claim Not Found, Policy Termed, Duplicate, Timely Filing, COB
-- 📄 **Upload a PDF** using the **＋ button** or **drag & drop** it anywhere on screen
+- 📄 **Upload a PDF** using the **＋ button** beside the text box, or **drag & drop** anywhere
 - 📊 AR aging, resubmission steps, claim prioritization
 
-👈 Use **Quick Actions** in the sidebar, or type below!
+👈 Use **Quick Actions** in the sidebar, or type your question below!
         """)
 
 # Chat history
@@ -676,7 +704,7 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="⚕️" if msg["role"] == "assistant" else "👤"):
         st.markdown(msg["content"])
 
-# Quick trigger
+# Quick action trigger
 if st.session_state.quick_trigger:
     trigger = st.session_state.quick_trigger
     st.session_state.quick_trigger = None
@@ -690,215 +718,129 @@ if st.session_state.quick_trigger:
     st.session_state.messages.append({"role": "assistant", "content": reply})
     st.rerun()
 
-# Spacer so content isn't hidden behind fixed input bar
-st.markdown("<div style='height:110px'></div>", unsafe_allow_html=True)
+# Spacer so chat content isn't hidden behind fixed bar
+st.markdown("<div style='height:100px'></div>", unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-#  DRAG & DROP OVERLAY (full screen)
+#  Drag & Drop Overlay (pure HTML, no Streamlit widgets)
 # ─────────────────────────────────────────────
 st.markdown("""
 <div id="drag-overlay">
     <div class="drop-box">
-        <div style="font-size:56px; margin-bottom:12px;">📄</div>
-        <div style="color:#f0f9ff; font-size:22px; font-weight:700; margin-bottom:6px;">Drop your PDF here</div>
-        <div style="color:#7dd3fc; font-size:14px;">Release to upload and read the document</div>
+        <div style="font-size:52px;margin-bottom:10px;">📄</div>
+        <div style="color:#f0f9ff;font-size:20px;font-weight:700;margin-bottom:4px;">
+            Drop your PDF here
+        </div>
+        <div style="color:#7dd3fc;font-size:13px;">
+            Release to upload and read the document
+        </div>
     </div>
-    <div style="color:#475569; font-size:12px;">Only PDF files are supported · Max 10MB</div>
+    <div style="color:#475569;font-size:11px;">PDF files only · Max 10MB</div>
 </div>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────────
-#  CUSTOM INPUT BAR  (fixed bottom)
+#  BOTTOM INPUT BAR  ─  native Streamlit widgets
+#  Layout: [＋ uploader col] [chat input col]
 # ─────────────────────────────────────────────
 st.markdown("""
-<div id="custom-input-bar">
-  <div style="max-width:860px; margin:0 auto; display:flex; align-items:center; gap:10px;
-              background:rgba(10,15,30,0.95); border:1px solid rgba(14,165,233,0.35);
-              border-radius:18px; padding:8px 10px 8px 14px;
-              box-shadow:0 -4px 30px rgba(0,0,0,0.5);">
-
-    <!-- Plus / attach button -->
-    <label for="plus-file-input" id="plus-btn" title="Upload PDF"
-      style="cursor:pointer; width:42px; height:42px; border-radius:50%; flex-shrink:0;
-             display:flex; align-items:center; justify-content:center;
-             background:rgba(14,165,233,0.15); border:2px solid rgba(14,165,233,0.45);
-             color:#0ea5e9; font-size:22px; font-weight:300; transition:all 0.2s;
-             user-select:none;">
-      ＋
-    </label>
-    <input type="file" id="plus-file-input" accept="application/pdf" style="display:none"/>
-
-    <!-- Text input -->
-    <input id="chat-text-input" type="text"
-      placeholder="Type your AR question or drag & drop a PDF anywhere…"
-      style="flex:1; background:transparent; border:none; outline:none;
-             color:#e2e8f0; font-size:14px; font-family:'DM Sans',sans-serif;
-             caret-color:#0ea5e9; padding:6px 0;"/>
-
-    <!-- Send button -->
-    <button id="send-btn" title="Send"
-      style="width:42px; height:42px; border-radius:50%; border:none; flex-shrink:0;
-             background:linear-gradient(135deg,#0ea5e9,#0284c7);
-             color:#fff; font-size:18px; cursor:pointer;
-             display:flex; align-items:center; justify-content:center;
-             box-shadow:0 2px 12px rgba(14,165,233,0.45); transition:all 0.2s;">
-      ➤
-    </button>
-  </div>
-  <div style="text-align:center;color:#334155;font-size:11px;margin-top:5px;">
-    Press Enter to send · Drag &amp; drop PDF anywhere · HIPAA compliant
-  </div>
-</div>
+<div style="position:fixed;bottom:0;left:0;right:0;z-index:200;
+            background:linear-gradient(to top,#070c18 80%,transparent);
+            padding:8px 16px 14px;">
+  <div style="max-width:900px;margin:0 auto;">
 """, unsafe_allow_html=True)
 
-# ─────────────────────────────────────────────
-#  Hidden Streamlit widgets bridged via JS
-# ─────────────────────────────────────────────
-# These are the actual Streamlit widgets; JS bridges the custom UI to them.
-col_input, col_upload = st.columns([10, 1])
-with col_input:
-    user_input = st.chat_input(
-        "hidden",
-        key="chat_input_hidden"
-    )
-with col_upload:
-    uploaded_file = st.file_uploader(
-        "pdf", type=["pdf"],
+bar_col1, bar_col2 = st.columns([1, 11])
+
+with bar_col1:
+    # ＋ button = styled file uploader
+    plus_file = st.file_uploader(
+        "Upload PDF",
+        type=["pdf"],
         label_visibility="collapsed",
-        key="pdf_uploader_bar"
+        key="plus_uploader",
     )
 
-# Handle PDF upload from the bar uploader
-handle_pdf_upload(uploaded_file)
+with bar_col2:
+    prompt = st.chat_input(
+        placeholder="Type your AR question or drag & drop a PDF anywhere…",
+        key="main_chat_input",
+    )
 
-# Handle chat submit
-if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
+st.markdown("</div></div>", unsafe_allow_html=True)
+
+# ─────────────────────────────────────────────
+#  Process inputs
+# ─────────────────────────────────────────────
+handle_pdf(plus_file)
+
+if prompt:
+    st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar="👤"):
-        st.markdown(user_input)
+        st.markdown(prompt)
     with st.chat_message("assistant", avatar="⚕️"):
         with st.spinner("Analyzing..."):
-            reply = call_groq(user_input, st.session_state.pdf_text)
+            reply = call_groq(prompt, st.session_state.pdf_text)
         st.markdown(reply)
     st.session_state.messages.append({"role": "assistant", "content": reply})
 
-# ─────────────────────────────────────────────
-#  JavaScript — drag/drop + plus button bridge
-# ─────────────────────────────────────────────
-st.markdown("""
-<script>
-(function() {
-
-  // ── Helpers ──────────────────────────────────────────────
-  function getStreamlitFileInput() {
-    // Target the hidden Streamlit file uploader input
-    const uploaders = document.querySelectorAll('input[type="file"][accept="application/pdf"]');
-    for (const u of uploaders) {
-      if (u.closest('[data-testid="stFileUploader"]')) return u;
-    }
-    return uploaders[uploaders.length - 1] || null;
-  }
-
-  function triggerStreamlitUpload(file) {
-    const stInput = getStreamlitFileInput();
-    if (!stInput) return;
-    const dt = new DataTransfer();
-    dt.items.add(file);
-    stInput.files = dt.files;
-    stInput.dispatchEvent(new Event('change', { bubbles: true }));
-  }
-
-  // ── Plus button → file picker ─────────────────────────────
-  const plusInput = document.getElementById('plus-file-input');
-  const plusBtn   = document.getElementById('plus-btn');
-
-  if (plusBtn && plusInput) {
-    plusBtn.addEventListener('mouseenter', () => {
-      plusBtn.style.background = 'rgba(14,165,233,0.3)';
-      plusBtn.style.borderColor = '#38bdf8';
-      plusBtn.style.transform   = 'scale(1.08)';
-    });
-    plusBtn.addEventListener('mouseleave', () => {
-      plusBtn.style.background = 'rgba(14,165,233,0.15)';
-      plusBtn.style.borderColor = 'rgba(14,165,233,0.45)';
-      plusBtn.style.transform   = 'scale(1)';
-    });
-
-    plusInput.addEventListener('change', () => {
-      const file = plusInput.files[0];
-      if (file) triggerStreamlitUpload(file);
-    });
-  }
-
-  // ── Send button & Enter key ───────────────────────────────
-  const textInput = document.getElementById('chat-text-input');
-  const sendBtn   = document.getElementById('send-btn');
-
-  function sendMessage() {
-    const val = textInput ? textInput.value.trim() : '';
-    if (!val) return;
-    // Bridge to Streamlit's hidden chat_input
-    const stTextarea = document.querySelector('[data-testid="stChatInput"] textarea');
-    if (stTextarea) {
-      const nativeSet = Object.getOwnPropertyDescriptor(
-        window.HTMLTextAreaElement.prototype, 'value'
-      ).set;
-      nativeSet.call(stTextarea, val);
-      stTextarea.dispatchEvent(new Event('input', { bubbles: true }));
-      stTextarea.dispatchEvent(new KeyboardEvent('keydown', {
-        key: 'Enter', code: 'Enter', keyCode: 13, bubbles: true
-      }));
-      textInput.value = '';
-    }
-  }
-
-  if (sendBtn)   sendBtn.addEventListener('click', sendMessage);
-  if (textInput) textInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  });
-
-  // ── Drag & drop overlay ───────────────────────────────────
-  const overlay = document.getElementById('drag-overlay');
-  let dragCounter = 0;
-
-  document.addEventListener('dragenter', (e) => {
-    if ([...e.dataTransfer.types].includes('Files')) {
-      dragCounter++;
-      if (overlay) overlay.classList.add('active');
-    }
-  });
-
-  document.addEventListener('dragleave', () => {
-    dragCounter--;
-    if (dragCounter <= 0) {
-      dragCounter = 0;
-      if (overlay) overlay.classList.remove('active');
-    }
-  });
-
-  document.addEventListener('dragover', (e) => e.preventDefault());
-
-  document.addEventListener('drop', (e) => {
-    e.preventDefault();
-    dragCounter = 0;
-    if (overlay) overlay.classList.remove('active');
-    const file = e.dataTransfer.files[0];
-    if (file && file.type === 'application/pdf') {
-      triggerStreamlitUpload(file);
-    } else if (file) {
-      alert('Please drop a PDF file.');
-    }
-  });
-
-})();
-</script>
-""", unsafe_allow_html=True)
-
 # Clear chat
 if st.session_state.messages:
-    st.divider()
+    st.markdown("<div style='height:20px'></div>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([3, 2, 3])
     with col2:
         if st.button("🗑️ Clear Chat", use_container_width=True):
             st.session_state.messages = []
             st.rerun()
+
+# ─────────────────────────────────────────────
+#  JavaScript — drag & drop only
+#  (bridges dropped file to the native st.file_uploader)
+# ─────────────────────────────────────────────
+st.markdown("""
+<script>
+(function () {
+    // Find the Streamlit file uploader input
+    function getSTInput() {
+        const inputs = document.querySelectorAll('input[type="file"][accept="application/pdf"]');
+        return inputs.length ? inputs[0] : null;
+    }
+
+    function pushFileToStreamlit(file) {
+        const inp = getSTInput();
+        if (!inp) return;
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        inp.files = dt.files;
+        inp.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+
+    const overlay = document.getElementById('drag-overlay');
+    let counter = 0;
+
+    document.addEventListener('dragenter', (e) => {
+        if ([...e.dataTransfer.types].includes('Files')) {
+            counter++;
+            if (overlay) overlay.classList.add('active');
+        }
+    });
+    document.addEventListener('dragleave', () => {
+        counter = Math.max(0, counter - 1);
+        if (counter === 0 && overlay) overlay.classList.remove('active');
+    });
+    document.addEventListener('dragover', (e) => e.preventDefault());
+    document.addEventListener('drop', (e) => {
+        e.preventDefault();
+        counter = 0;
+        if (overlay) overlay.classList.remove('active');
+        const file = e.dataTransfer.files[0];
+        if (!file) return;
+        if (file.type !== 'application/pdf') {
+            alert('Please drop a PDF file.');
+            return;
+        }
+        pushFileToStreamlit(file);
+    });
+})();
+</script>
+""", unsafe_allow_html=True)
