@@ -393,12 +393,7 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Lato', sans-serif;
-    font-size: 15px;
-}
-
-/* ── App background ── */
+html, body, [class*="css"] { font-family: 'Lato', sans-serif; font-size: 15px; }
 .stApp { background-color: #212121; color: #ececec; }
 #MainMenu, footer, header { visibility: hidden; }
 
@@ -410,7 +405,7 @@ html, body, [class*="css"] {
 [data-testid="stSidebar"] * { color: #c4c4c4 !important; }
 [data-testid="stSidebar"] h1,
 [data-testid="stSidebar"] h2,
-[data-testid="stSidebar"] h3 { color: #ffffff !important; }
+[data-testid="stSidebar"] h3 { color: #fff !important; }
 [data-testid="collapsedControl"] { background: #2a2a2a !important; }
 [data-testid="stSidebar"] .stButton > button {
     background: transparent !important;
@@ -425,27 +420,21 @@ html, body, [class*="css"] {
     transition: background 0.15s;
 }
 [data-testid="stSidebar"] .stButton > button:hover {
-    background: #2a2a2a !important;
-    color: #fff !important;
+    background: #2a2a2a !important; color: #fff !important;
 }
 [data-testid="stSidebar"] hr { border-color: #2e2e2e !important; }
 [data-testid="stSidebar"] [data-testid="stMetric"] {
-    background: #1e1e1e !important;
-    border: 1px solid #2e2e2e !important;
-    border-radius: 8px !important;
-    padding: 8px !important;
+    background: #1e1e1e !important; border: 1px solid #2e2e2e !important;
+    border-radius: 8px !important; padding: 8px !important;
 }
 [data-testid="stSidebar"] [data-testid="stMetricValue"] { color: #fff !important; }
 [data-testid="stSidebar"] [data-testid="stMetricLabel"] { color: #666 !important; }
 [data-testid="stSidebar"] .stFileUploader section {
-    background: #1e1e1e !important;
-    border: 1.5px dashed #3a3a3a !important;
-    border-radius: 10px !important;
-    padding: 12px !important;
+    background: #1e1e1e !important; border: 1.5px dashed #3a3a3a !important;
+    border-radius: 10px !important; padding: 12px !important;
 }
 [data-testid="stSidebar"] .stFileUploader section:hover {
-    border-color: #666 !important;
-    background: #252525 !important;
+    border-color: #666 !important; background: #252525 !important;
 }
 
 /* ── Main content ── */
@@ -457,178 +446,129 @@ html, body, [class*="css"] {
 
 /* ── Chat messages ── */
 [data-testid="stChatMessage"] {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    margin-bottom: 22px !important;
-    box-shadow: none !important;
+    background: transparent !important; border: none !important;
+    border-radius: 0 !important; padding: 0 !important;
+    margin-bottom: 22px !important; box-shadow: none !important;
 }
-
-/* User bubble — right-aligned */
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) {
-    display: flex !important;
-    justify-content: flex-end !important;
+    display: flex !important; justify-content: flex-end !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) .stMarkdown {
-    background: #2f2f2f !important;
-    border: 1px solid #3a3a3a !important;
-    border-radius: 18px 18px 4px 18px !important;
-    padding: 12px 18px !important;
-    max-width: 72% !important;
-    color: #ececec !important;
-    font-size: 15px !important;
-    line-height: 1.65 !important;
+    background: #2f2f2f !important; border: 1px solid #3a3a3a !important;
+    border-radius: 18px 18px 4px 18px !important; padding: 12px 18px !important;
+    max-width: 72% !important; color: #ececec !important;
+    font-size: 15px !important; line-height: 1.65 !important;
 }
-
-/* Assistant — plain text, no bubble */
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown {
-    background: transparent !important;
-    padding: 0 !important;
-    font-size: 15px !important;
-    line-height: 1.8 !important;
-    color: #ececec !important;
+    background: transparent !important; padding: 0 !important;
+    font-size: 15px !important; line-height: 1.8 !important; color: #ececec !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown p {
-    margin-bottom: 10px !important;
-    color: #dedede !important;
+    margin-bottom: 10px !important; color: #dedede !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown strong {
-    color: #fff !important;
-    font-weight: 700 !important;
+    color: #fff !important; font-weight: 700 !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown ul,
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown ol {
-    padding-left: 20px !important;
-    margin-bottom: 10px !important;
+    padding-left: 20px !important; margin-bottom: 10px !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown li {
-    margin-bottom: 5px !important;
-    color: #dedede !important;
+    margin-bottom: 5px !important; color: #dedede !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown code {
-    background: #2a2a2a !important;
-    border: 1px solid #3a3a3a !important;
-    border-radius: 5px !important;
-    padding: 1px 6px !important;
-    font-size: 13px !important;
-    color: #f9a825 !important;
+    background: #2a2a2a !important; border: 1px solid #3a3a3a !important;
+    border-radius: 5px !important; padding: 1px 6px !important;
+    font-size: 13px !important; color: #f9a825 !important;
 }
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) .stMarkdown h3 {
-    color: #fff !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    margin: 14px 0 6px !important;
+    color: #fff !important; font-size: 15px !important;
+    font-weight: 700 !important; margin: 14px 0 6px !important;
 }
-
-/* Avatars */
 [data-testid="chatAvatarIcon-assistant"] {
-    background: #d97706 !important;
-    border-radius: 50% !important;
-    width: 32px !important; height: 32px !important;
-    flex-shrink: 0 !important;
+    background: #d97706 !important; border-radius: 50% !important;
+    width: 32px !important; height: 32px !important; flex-shrink: 0 !important;
 }
 [data-testid="chatAvatarIcon-user"] {
-    background: #4f46e5 !important;
-    border-radius: 50% !important;
-    width: 32px !important; height: 32px !important;
-    flex-shrink: 0 !important;
+    background: #4f46e5 !important; border-radius: 50% !important;
+    width: 32px !important; height: 32px !important; flex-shrink: 0 !important;
 }
 
-/* ── Native chat input — fixed bottom, full width ── */
-[data-testid="stChatInput"] {
-    max-width: 760px !important;
-    margin: 0 auto !important;
-}
+/* ── Native chat input ── */
 [data-testid="stChatInput"] > div {
     background: #2f2f2f !important;
     border: 1px solid #3e3e3e !important;
     border-radius: 16px !important;
     box-shadow: 0 4px 24px rgba(0,0,0,0.5) !important;
-    padding: 4px 8px !important;
+    /* push content right to leave room for the floating 📎 button */
+    padding: 4px 8px 4px 52px !important;
 }
-[data-testid="stChatInput"] > div:focus-within {
-    border-color: #555 !important;
-}
+[data-testid="stChatInput"] > div:focus-within { border-color: #555 !important; }
 [data-testid="stChatInput"] textarea {
-    font-family: 'Lato', sans-serif !important;
-    font-size: 15px !important;
-    color: #ececec !important;
-    background: transparent !important;
-    caret-color: #d97706 !important;
-    padding: 10px 12px !important;
+    font-family: 'Lato', sans-serif !important; font-size: 15px !important;
+    color: #ececec !important; background: transparent !important;
+    caret-color: #d97706 !important; padding: 10px 4px !important;
 }
 [data-testid="stChatInput"] textarea::placeholder { color: #555 !important; }
 [data-testid="stChatInput"] button[kind="primary"] {
-    background: #d97706 !important;
-    border-radius: 10px !important;
-    color: white !important;
-    border: none !important;
+    background: #d97706 !important; border-radius: 10px !important;
+    color: white !important; border: none !important;
 }
 [data-testid="stChatInput"] button[kind="primary"]:hover { background: #b45309 !important; }
 [data-testid="stChatInput"] button[kind="primary"]:disabled {
-    background: #2e2e2e !important;
-    color: #444 !important;
+    background: #2e2e2e !important; color: #444 !important;
 }
 
-/* ── PDF upload popover button ──
-   Floats just above the chat input bar on the left */
-[data-testid="stPopover"] {
-    position: fixed !important;
-    bottom: 74px !important;
-    left: 50% !important;
-    transform: translateX(-370px) !important;
-    z-index: 1001 !important;
+/* ── Floating 📎 button — fixed, sits inside the left edge of the input bar ── */
+#attach-btn {
+    position: fixed;
+    bottom: 22px;
+    /* horizontally centred within the 760 px chat column */
+    left: 50%;
+    transform: translateX(-348px);
+    z-index: 9999;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    background: #3a3a3a;
+    border: 1px solid #4a4a4a;
+    color: #d97706;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s, transform 0.15s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    user-select: none;
 }
-[data-testid="stPopover"] > button {
-    background: #2f2f2f !important;
-    border: 1px solid #3e3e3e !important;
-    border-radius: 10px !important;
-    color: #d97706 !important;
-    font-size: 20px !important;
-    width: 40px !important;
-    height: 40px !important;
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    transition: all 0.15s !important;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.4) !important;
+#attach-btn:hover {
+    background: #4a4a4a;
+    border-color: #d97706;
+    transform: translateX(-348px) scale(1.08);
 }
-[data-testid="stPopover"] > button:hover {
-    background: #3a3a3a !important;
-    border-color: #d97706 !important;
+#attach-btn.active {
+    background: #d97706;
+    color: #fff;
+    border-color: #d97706;
 }
 
-/* Popover panel */
-[data-testid="stPopoverBody"] {
-    background: #1e1e1e !important;
-    border: 1px solid #333 !important;
-    border-radius: 14px !important;
-    padding: 16px !important;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
-    min-width: 300px !important;
-}
-[data-testid="stPopoverBody"] * { color: #c4c4c4 !important; }
-[data-testid="stPopoverBody"] .stFileUploader section {
-    background: #252525 !important;
-    border: 1.5px dashed #3a3a3a !important;
-    border-radius: 10px !important;
-}
-[data-testid="stPopoverBody"] .stFileUploader section:hover {
-    border-color: #d97706 !important;
-    background: #2a2a2a !important;
+/* hidden real file input */
+#real-file-input { display: none; }
+
+/* ── Hidden Streamlit file uploader (bridge target) ── */
+div[data-testid="stFileUploader"].hidden-uploader {
+    position: absolute !important;
+    width: 1px !important; height: 1px !important;
+    overflow: hidden !important; opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 /* Misc */
 .stAlert { border-radius: 10px !important; }
 p, li { color: #dedede !important; }
 h1, h2, h3 { color: #fff !important; font-weight: 600 !important; }
-[data-testid="stMarkdownContainer"] hr {
-    border-color: #2e2e2e !important;
-    margin: 20px 0 !important;
-}
+[data-testid="stMarkdownContainer"] hr { border-color: #2e2e2e !important; margin: 20px 0 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -657,9 +597,6 @@ QUICK_ACTIONS = [
     ("📊 AR Aging",         "Explain the AR aging buckets and how to prioritize work."),
 ]
 
-# ─────────────────────────────────────────────
-#  Session state
-# ─────────────────────────────────────────────
 for key, val in {
     "messages": [], "pdf_text": None,
     "pdf_name": None, "quick_trigger": None,
@@ -720,7 +657,7 @@ with st.sidebar:
                     display:flex;align-items:center;justify-content:center;
                     font-size:18px;flex-shrink:0;">⚕️</div>
         <div>
-            <div style="color:#fff;font-weight:700;font-size:14px;line-height:1.2;">AR Denial Assistant</div>
+            <div style="color:#fff;font-weight:700;font-size:14px;">AR Denial Assistant</div>
             <div style="color:#555;font-size:11px;">Aayur Solutions</div>
         </div>
     </div>
@@ -733,7 +670,6 @@ with st.sidebar:
         st.rerun()
 
     st.divider()
-
     st.markdown("<div style='color:#555;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;'>Documents</div>", unsafe_allow_html=True)
     side_pdf = st.file_uploader("Upload PDF", type=["pdf"], label_visibility="collapsed", key="sidebar_pdf")
     handle_pdf(side_pdf)
@@ -784,36 +720,29 @@ with st.sidebar:
 # ═════════════════════════════════════════════
 #  MAIN CHAT AREA
 # ═════════════════════════════════════════════
-
-# PDF active badge
 if st.session_state.pdf_name:
     st.markdown(f"""
     <div style="display:flex;justify-content:center;padding:10px 0 4px;">
         <div style="display:inline-flex;align-items:center;gap:6px;
-                    background:#2a2200;border:1px solid #5a3e00;
-                    border-radius:20px;padding:4px 14px;
-                    font-size:12px;color:#fbbf24;font-weight:500;">
+                    background:#2a2200;border:1px solid #5a3e00;border-radius:20px;
+                    padding:4px 14px;font-size:12px;color:#fbbf24;font-weight:500;">
             📎 {st.session_state.pdf_name}
         </div>
     </div>
     """, unsafe_allow_html=True)
 
-# ── Empty state ──
 if not st.session_state.messages:
     st.markdown("""
     <div style="display:flex;flex-direction:column;align-items:center;
-                justify-content:center;min-height:52vh;text-align:center;
-                padding:40px 20px 0;">
+                justify-content:center;min-height:52vh;text-align:center;padding:40px 20px 0;">
         <div style="width:58px;height:58px;border-radius:14px;background:#d97706;
                     display:flex;align-items:center;justify-content:center;
                     font-size:28px;margin-bottom:22px;
                     box-shadow:0 4px 24px rgba(217,119,6,0.35);">⚕️</div>
         <h1 style="font-size:26px;font-weight:600;margin:0 0 8px;color:#fff;">
-            How can I help you today?
-        </h1>
+            How can I help you today?</h1>
         <p style="color:#777;font-size:15px;max-width:400px;line-height:1.65;margin:0 0 36px;">
-            Ask me about any claim denial, or upload a PDF to get answers directly from it.
-        </p>
+            Ask me about any claim denial, or upload a PDF to get answers directly from it.</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:500px;width:100%;">
             <div style="background:#2a2a2a;border:1px solid #333;border-radius:12px;padding:14px 16px;text-align:left;">
                 <div style="font-size:18px;margin-bottom:5px;">🔍</div>
@@ -839,12 +768,10 @@ if not st.session_state.messages:
     </div>
     """, unsafe_allow_html=True)
 
-# ── Render all chat history ──
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar="⚕️" if msg["role"] == "assistant" else "👤"):
         st.markdown(msg["content"])
 
-# ── Quick action trigger ──
 if st.session_state.quick_trigger:
     trigger = st.session_state.quick_trigger
     st.session_state.quick_trigger = None
@@ -858,28 +785,29 @@ if st.session_state.quick_trigger:
     st.session_state.messages.append({"role": "assistant", "content": reply})
     st.rerun()
 
-# ── Spacer so last message isn't hidden behind input bar ──
 st.markdown("<div style='height:120px'></div>", unsafe_allow_html=True)
 
 # ═════════════════════════════════════════════
-#  INPUT BAR
-#  📎 popover  +  st.chat_input (standalone = fixed bottom)
+#  FLOATING 📎 BUTTON  +  HIDDEN FILE UPLOADER
 # ═════════════════════════════════════════════
 
-# 📎 popover — floats just above the chat input via CSS
-with st.popover("📎"):
-    st.markdown("<div style='color:#fff;font-weight:600;font-size:14px;margin-bottom:8px;'>Upload PDF Document</div>", unsafe_allow_html=True)
-    st.caption("I'll read the document and answer questions from it.")
-    pop_pdf = st.file_uploader(
-        "Choose a PDF", type=["pdf"],
-        label_visibility="collapsed",
-        key="popover_pdf"
-    )
-    handle_pdf(pop_pdf)
-    if st.session_state.pdf_name:
-        st.success(f"✅ Active: {st.session_state.pdf_name}")
+# Floating attach button (pure HTML — just visual + triggers JS file picker)
+st.markdown("""
+<div id="attach-btn" title="Upload PDF" onclick="document.getElementById('real-file-input').click()">
+    📎
+</div>
+<input type="file" id="real-file-input" accept="application/pdf" />
+""", unsafe_allow_html=True)
 
-# Standalone chat_input — Streamlit automatically fixes this to the bottom
+# Hidden Streamlit file uploader — this is the actual bridge
+bar_pdf = st.file_uploader(
+    "hidden", type=["pdf"],
+    label_visibility="collapsed",
+    key="bar_pdf"
+)
+handle_pdf(bar_pdf)
+
+# ── STANDALONE chat_input — stays fixed at bottom ──
 prompt = st.chat_input("Message AR Denial Assistant…")
 
 if prompt:
@@ -891,3 +819,49 @@ if prompt:
             reply = call_groq(prompt, st.session_state.pdf_text)
         st.markdown(reply)
     st.session_state.messages.append({"role": "assistant", "content": reply})
+
+# ═════════════════════════════════════════════
+#  JS — bridge HTML file input → Streamlit uploader
+# ═════════════════════════════════════════════
+st.markdown("""
+<script>
+(function () {
+    // Mark the attach button active when a PDF is loaded
+    function setActive(active) {
+        const btn = document.getElementById('attach-btn');
+        if (!btn) return;
+        if (active) btn.classList.add('active');
+        else btn.classList.remove('active');
+    }
+
+    // Find the hidden Streamlit file uploader input
+    function getSTInput() {
+        // The hidden uploader is the last file input on the page
+        const all = document.querySelectorAll(
+            '[data-testid="stFileUploader"] input[type="file"]'
+        );
+        return all.length ? all[all.length - 1] : null;
+    }
+
+    // When user picks a file via the HTML input, push it to Streamlit
+    const realInput = document.getElementById('real-file-input');
+    if (realInput) {
+        realInput.addEventListener('change', function () {
+            const file = this.files[0];
+            if (!file) return;
+            if (file.type !== 'application/pdf') {
+                alert('Please select a PDF file.');
+                return;
+            }
+            const stInput = getSTInput();
+            if (!stInput) return;
+            const dt = new DataTransfer();
+            dt.items.add(file);
+            stInput.files = dt.files;
+            stInput.dispatchEvent(new Event('change', { bubbles: true }));
+            setActive(true);
+        });
+    }
+})();
+</script>
+""", unsafe_allow_html=True)
